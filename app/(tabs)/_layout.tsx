@@ -1,9 +1,15 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-
+import Feather from '@expo/vector-icons/Feather';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Octicons from '@expo/vector-icons/Octicons';
+
+
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -23,7 +29,7 @@ export default function TabLayout() {
         options={{
           title: 'Semana',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <Feather name="calendar" size={26} color={color}/>
           ),
         }}
       />
@@ -32,7 +38,7 @@ export default function TabLayout() {
         options={{
           title: 'Agenda',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'search' : 'search-outline'} color={color} />
+            <FontAwesome5 name="calendar-check" size={26} color={color} />
           ),
         }}
       />
@@ -41,7 +47,7 @@ export default function TabLayout() {
         options={{
           title: 'Chat',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+            <MaterialIcons name="chat" size={26} color={color}/>
           ),
         }}
       />
@@ -50,7 +56,7 @@ export default function TabLayout() {
         options={{
           title: 'Score',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+            <MaterialCommunityIcons name="star-shooting-outline" size={26} color={color} />
           ),
         }}
       />
@@ -59,7 +65,7 @@ export default function TabLayout() {
         options={{
           title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+            <Octicons name="feed-person" size={26} color={color} />
           ),
         }}
       />
