@@ -1,11 +1,5 @@
+import { ComingSoon } from '@/components/ComingSoon';
 
-import React from 'react';
-import { View, Text } from 'react-native';
-
-export default function SettingsScreen() {
-  return (
-    <View>
-      <Text>teste outra tela score</Text>
-    </View>
-  );
+export default function ScoreScreen() {
+  return <ComingSoon />;
 }

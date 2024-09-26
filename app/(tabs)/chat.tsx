@@ -1,11 +1,5 @@
+import { ComingSoon } from '@/components/ComingSoon';
 
-import React from 'react';
-import { View, Text } from 'react-native';
-
-export default function SettingsScreen() {
-  return (
-    <View>
-      <Text>teste outra tela chat</Text>
-    </View>
-  );
+export default function ChatScreen() {
+  return <ComingSoon />;
 }
