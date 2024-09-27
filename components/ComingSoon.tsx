@@ -3,10 +3,12 @@ import { StyleSheet, Image } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-export const ComingSoon = () => {
+export const ComingSoon = ({ screenName }: { screenName: string }) => {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>Em breve</ThemedText>
+      <ThemedText type="title" style={styles.title}>
+        Em breve {screenName}
+      </ThemedText>
       <Image 
         source={require('@/assets/icons/barrier.png')}
         style={styles.image}
