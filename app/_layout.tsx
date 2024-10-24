@@ -1,15 +1,14 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import React from 'react';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold } from '@expo-google-fonts/poppins';
-import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from 'expo-router';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
-  const [loaded] = useFonts({
+export default function Root() {
+  const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_600SemiBold,
@@ -17,19 +16,19 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded) {
+    if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 
   return (
     <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
+      <Stack.Screen name='index' options={{ headerShown: false, title:'Login' }} />
+      <Stack.Screen name='(tabs)'  options={{ headerShown: false }} />
     </Stack>
-  );
+  )
 }

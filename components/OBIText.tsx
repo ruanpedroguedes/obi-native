@@ -1,57 +1,33 @@
-import { Text, type TextProps, StyleSheet } from 'react-native';
+import React from 'react';
+import { Text, TextProps, StyleSheet } from 'react-native';
 
-export type ThemedTextProps = TextProps & {
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'spanText';
-  fontSize?: number;
-};
-
-export function OBIText({
-  style,
-  type = 'default',
-  fontSize,
-  ...rest
-}: ThemedTextProps) {
-
-  return (
-    <Text
-      style={[
-        type === 'default' ? styles.default : undefined,
-        type === 'title' ? styles.title : undefined,
-        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
-        type === 'subtitle' ? styles.subtitle : undefined,
-        type === 'spanText' ? styles.spanText : undefined,
-        fontSize ? { fontSize } : undefined,
-        style,
-      ]}
-      {...rest}
-    />
-  );
+interface OBITextProps extends TextProps {
+  weight?: '400' | '500' | '600' | '700';
 }
 
-const styles = StyleSheet.create({
-  default: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'Poppins_400Regular',
-  },
-  defaultSemiBold: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'Poppins_600SemiBold',
-  },
-  title: {
-    fontSize: 32,
-    lineHeight: 32,
-    fontFamily: 'Poppins_700Bold',
-  },
-  subtitle: {
-    fontSize: 20,
-    fontFamily: 'Poppins_700Bold'
-  },
-  spanText: {
-    lineHeight: 27,
-    color: '#103ADA',
-    fontFamily: 'Poppins_500Medium',
-  },
+const OBIText: React.FC<OBITextProps> = ({ style, weight = '400', ...props }) => {
+  let fontFamily;
+  switch (weight) {
+    case '500':
+      fontFamily = 'Poppins_500Medium';
+      break;
+    case '600':
+      fontFamily = 'Poppins_600SemiBold';
+      break;
+    case '700':
+      fontFamily = 'Poppins_700Bold';
+      break;
+    default:
+      fontFamily = 'Poppins_400Regular';
+  }
 
+  return <Text {...props} style={[styles.text, { fontFamily }, style]} />;
+};
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16,
+  },
 });
+
+export default OBIText;

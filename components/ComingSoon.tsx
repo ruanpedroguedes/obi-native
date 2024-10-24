@@ -1,22 +1,20 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 export const ComingSoon = ({ screenName }: { screenName: string }) => {
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>
+    <View style={styles.container}>
+      <Text style={styles.title}>
         Em breve {screenName}
-      </ThemedText>
+      </Text>
       <Image 
         source={require('@/assets/icons/barrier.png')}
         style={styles.image}
       />
-      <ThemedText style={styles.caption}>
+      <Text style={styles.caption}>
         Estamos trabalhando o mais rápido possível para oferecer mais funcionalidades.
-      </ThemedText>
-    </ThemedView>
+      </Text>
+    </View>
   );
 }
 

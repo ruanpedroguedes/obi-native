@@ -1,8 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import Feather from '@expo/vector-icons/Feather';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
