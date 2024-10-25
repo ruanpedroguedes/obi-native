@@ -1,5 +1,4 @@
 import { Poppins_300Light, Poppins_300Light_Italic, useFonts } from '@expo-google-fonts/dev';
-import { Poppins_400Regular } from '@expo-google-fonts/poppins';
 import React from 'react';
 import { TextInput, StyleSheet, View } from 'react-native';
 
