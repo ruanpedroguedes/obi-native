@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#E2E2E2',
     borderRadius: 99,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     fontFamily: 'Poppins_300Light_Italic',
     fontSize: 15,
     lineHeight: 22.5,

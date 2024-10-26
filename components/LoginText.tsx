@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#FFFFFF',
     alignSelf: 'flex-start',
-    paddingHorizontal: 33,
+    paddingHorizontal: 37,
     fontFamily: 'Poppins_400Regular',
     fontSize: 15,
     lineHeight: 22.5,
