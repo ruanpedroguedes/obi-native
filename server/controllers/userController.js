@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
 const getAllUsers = async (req, res) => {
@@ -9,28 +10,43 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const getUserByUsernameOrEmail = async (req, res) => {
-    const { username, email } = req.query;
-    try {
-      const user = await User.findOne({
-        $or: [
-          { username: username }, 
-          { useremail: email }
-        ]
-      });
-  
-      if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
-      }
-  
-      res.json(user);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+const loginUser = async (req, res) => {
+  const { usernameOrEmail, password } = req.body;
+
+  try {
+    const user = await User.findOne({
+      $or: [{ username: usernameOrEmail }, { useremail: usernameOrEmail }],
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
     }
-  };
-  
+
+    const isPasswordCorrect = await user.comparePassword(password);
+      if (!isPasswordCorrect) {
+        return res.status(401).json({ message: 'Senha incorreta' });
+      }
+
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        useremail: user.useremail,
+        userType: user.userType,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   getAllUsers,
-  getUserByUsernameOrEmail,
+  loginUser,
 };

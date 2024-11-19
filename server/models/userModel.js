@@ -1,17 +1,60 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  useremail: { type: String, required: true },
-  password: { type: String, required: true },
-  usertype: { type: String, required: true },
-  dateOfBirth: { type: Date, required: true },
-  curso: { type: String, required: true },
-  turma: { type: String, required: true },
-  local: { type: String },
-  matricula: { type: String, required: true },
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+  },
+  useremail: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    match: [/.+@.+\..+/, 'Por favor, insira um email válido'], 
+  },
+  userpassword: {
+    type: String,
+    required: true,
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true,
+  },
+  course: {
+    type: String,
+    required: false,
+  },
+  registrationNumber: {
+    type: String,
+    required: false,
+  },
+  userType: {
+    type: String,
+    required: true,
+    enum: ['student', 'teacher', 'admin'],
+  },
+}, {
+  timestamps: true,
 });
 
-const User = mongoose.model('User', userSchema);
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('userpassword')) return next();
 
-module.exports = User;
+  const salt = await bcrypt.genSalt(10);
+  this.userpassword = await bcrypt.hash(this.userpassword, salt);
+  next();
+});
+
+userSchema.methods.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.userpassword);
+};
+
+module.exports = mongoose.model('User', userSchema);

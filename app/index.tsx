@@ -20,8 +20,32 @@ const LoginScreen = () => {
     return null;
   }
 
-  const navigateToTabs = () => {
-    router.push('/(tabs)');
+  const handleLogin = async () => {
+    if (!name || !password) {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+  
+    try {
+      const response = await fetch('http://192.168.0.101:5000/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ usernameOrEmail: name, password }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        alert('Login realizado com sucesso!');
+        router.push('/(tabs)');
+      } else {
+        alert(data.message || 'Erro ao fazer login.');
+      }
+    } catch (error) {
+      alert('Erro ao conectar ao servidor.');
+    }
   };
 
   return (
@@ -36,7 +60,7 @@ const LoginScreen = () => {
       
       <LoginText style={styles.forgotPassword}>Esqueceu sua senha?</LoginText>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToTabs}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}      >
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
     </View>
