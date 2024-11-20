@@ -28,3 +28,12 @@
     ├── utils               # Funções utilitárias (Ex: Geração de Códigos)
 
 ###
+
+### Como Iniciar o Back-End
+~~~
+npm install express cors morgan mongoose jsonwebtoken bcrypt
+~~~
+
+~~~
+node index.js
+~~~
