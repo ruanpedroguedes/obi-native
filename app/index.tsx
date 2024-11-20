@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import { useFonts, Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import LoginTextInput from '@/components/LoginTextInput';
 import LoginText from '@/components/LoginText';
+import LoginLogo from '@/components/LoginLogo';
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -38,7 +39,6 @@ const LoginScreen = () => {
       const data = await response.json();
   
       if (response.ok) {
-        alert('Login realizado com sucesso!');
         router.push('/(tabs)');
       } else {
         alert(data.message || 'Erro ao fazer login.');
@@ -50,6 +50,9 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+
+      <LoginLogo></LoginLogo>
+      
       <Text style={styles.title}>Entrar</Text>
       
       <LoginText>Nome do usuário ou e-mail</LoginText>
