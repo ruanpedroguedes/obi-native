@@ -28,7 +28,7 @@ const LoginLogo = () => {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginBottom: 90,
+    marginBottom: 80,
   },
   row: {
     flexDirection: 'row',

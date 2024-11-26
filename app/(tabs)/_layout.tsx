@@ -27,7 +27,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Semana',
+          title: 'Turmas',
           tabBarIcon: ({ color, focused }) => (
             <Feather name="calendar" size={26} color={color}/>
           ),

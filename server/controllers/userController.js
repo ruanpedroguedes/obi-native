@@ -1,14 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+const Discipline = require('../models/disciplineModel');
 
 const loginUser = async (req, res) => {
   const { usernameOrEmail, password } = req.body;
@@ -46,7 +38,23 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getUserDisciplines = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId).populate('discipline_id');
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    res.status(200).json({ disciplines: user.discipline_id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
-  getAllUsers,
   loginUser,
+  getUserDisciplines,
 };
