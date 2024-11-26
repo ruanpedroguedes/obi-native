@@ -1,27 +1,42 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import OBIText from './OBIText';
 
-const DisciplineCard = () => {
+interface DisciplineCardProps {
+  name: string;
+  classId: string;
+}
+
+const DisciplineCard: React.FC<DisciplineCardProps> = ({ name, classId }) => {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
         <View style={styles.iconPlaceholder} />
         <View style={styles.textContainer}>
-          <OBIText weight="400" style={{ fontSize: 20, lineHeight: 30 }}>História</OBIText>
-          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>Nome do professor</OBIText>
+          <OBIText weight="400" style={{ fontSize: 20, lineHeight: 30 }}>
+            {name}
+          </OBIText>
+          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>
+            Classe: {classId}
+          </OBIText>
         </View>
       </View>
 
       <View style={styles.buttonContainer}>
         <View style={[styles.button, styles.buttonSpacing]}>
-          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>Avisos</OBIText>
+          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>
+            Avisos
+          </OBIText>
         </View>
         <View style={[styles.button, styles.buttonSpacing]}>
-          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>Materiais</OBIText>
+          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>
+            Materiais
+          </OBIText>
         </View>
         <View style={styles.button}>
-          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>Enquetes</OBIText>
+          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>
+            Enquetes
+          </OBIText>
         </View>
       </View>
     </View>
