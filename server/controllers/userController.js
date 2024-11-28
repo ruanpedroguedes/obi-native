@@ -48,7 +48,7 @@ const getUserDisciplines = async (req, res) => {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    res.status(200).json({ disciplines: user.discipline_id });
+    res.status(200).json({ name: user.name, disciplines: user.discipline_id });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

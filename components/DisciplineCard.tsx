@@ -4,10 +4,9 @@ import OBIText from './OBIText';
 
 interface DisciplineCardProps {
   name: string;
-  classId: string;
 }
 
-const DisciplineCard: React.FC<DisciplineCardProps> = ({ name, classId }) => {
+const DisciplineCard: React.FC<DisciplineCardProps> = ({ name }) => {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
@@ -15,9 +14,6 @@ const DisciplineCard: React.FC<DisciplineCardProps> = ({ name, classId }) => {
         <View style={styles.textContainer}>
           <OBIText weight="400" style={{ fontSize: 20, lineHeight: 30 }}>
             {name}
-          </OBIText>
-          <OBIText weight="400" style={{ fontSize: 12, lineHeight: 18 }}>
-            Classe: {classId}
           </OBIText>
         </View>
       </View>

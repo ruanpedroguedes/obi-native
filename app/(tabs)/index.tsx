@@ -6,11 +6,11 @@ import DisciplineCard from '@/components/DisciplineCard';
 interface Discipline {
   _id: string;
   name: string;
-  class_id: string;
 }
 
 export default function WeekScreen() {
   const [disciplines, setDisciplines] = useState<Discipline[]>([]);
+  const [userName, setUserName] = useState<string>('StudentName');
 
   useEffect(() => {
     fetch('http://192.168.0.101:5000/user/673cbdf8da377ba7ba74a42a')
@@ -19,13 +19,19 @@ export default function WeekScreen() {
         if (data.disciplines) {
           setDisciplines(data.disciplines);
         }
+        if (data.name) {
+          const firstName = data.name.split(' ')[0];
+          setUserName(firstName);
+        }
       })
       .catch((error) => console.error(error));
   }, []);
 
   return (
     <View style={styles.container}>
-      <OBIText weight="400" style={{ fontSize: 15 }}>Olá User,</OBIText>
+      <OBIText weight="400" style={{ fontSize: 15 }}>
+        Olá {userName},
+      </OBIText>
       <OBIText weight="400" style={{ fontSize: 18 }}>
         Pronto para estudar?{' '}
         <OBIText weight="500" style={{ fontSize: 18, color: '#103ADA' }}>
@@ -37,7 +43,7 @@ export default function WeekScreen() {
         data={disciplines}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <DisciplineCard name={item.name} classId={item.class_id} />
+          <DisciplineCard name={item.name} />
         )}
       />
     </View>
