@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import OBIText from '@/components/OBIText';
 import DisciplineCard from '@/components/DisciplineCard';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Discipline {
   _id: string;
@@ -13,9 +14,17 @@ export default function WeekScreen() {
   const [userName, setUserName] = useState<string>('StudentName');
 
   useEffect(() => {
-    fetch('http://192.168.0.101:5000/user/673cbdf8da377ba7ba74a42a')
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchUserData = async () => {
+      try {
+        const userId = await AsyncStorage.getItem('userId');
+        if (!userId) {
+          console.error('Usuário não encontrado no armazenamento local.');
+          return;
+        }
+
+        const response = await fetch(`http://192.168.0.101:5000/user/${userId}`);
+        const data = await response.json();
+
         if (data.disciplines) {
           setDisciplines(data.disciplines);
         }
@@ -23,8 +32,12 @@ export default function WeekScreen() {
           const firstName = data.name.split(' ')[0];
           setUserName(firstName);
         }
-      })
-      .catch((error) => console.error(error));
+      } catch (error) {
+        console.error('Erro ao buscar dados do usuário:', error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   return (

@@ -5,6 +5,7 @@ import { useFonts, Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-
 import LoginTextInput from '@/components/LoginTextInput';
 import LoginText from '@/components/LoginText';
 import LoginLogo from '@/components/LoginLogo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -39,6 +40,7 @@ const LoginScreen = () => {
       const data = await response.json();
   
       if (response.ok) {
+        await AsyncStorage.setItem('userId', data.user.id);
         router.push('/(tabs)');
       } else {
         alert(data.message || 'Erro ao fazer login.');
