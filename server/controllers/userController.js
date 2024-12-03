@@ -3,22 +3,19 @@ const User = require('../models/userModel');
 const Discipline = require('../models/disciplineModel');
 
 const loginUser = async (req, res) => {
-  const { usernameOrEmail, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({
-      $or: [{ username: usernameOrEmail }, { useremail: usernameOrEmail }],
-    });
+    const user = await User.findOne({ useremail: email });
 
     if (!user) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const isPasswordCorrect = await user.comparePassword(password);
-      if (!isPasswordCorrect) {
-        return res.status(401).json({ message: 'Senha incorreta' });
-      }
-
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ message: 'Senha incorreta' });
+    }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '1h',
@@ -30,10 +27,11 @@ const loginUser = async (req, res) => {
         id: user._id,
         username: user.username,
         useremail: user.useremail,
-        userType: user.userType,
+        usertype: user.usertype,
       },
     });
   } catch (error) {
+    console.error("Erro ao autenticar:", error);
     res.status(500).json({ error: error.message });
   }
 };

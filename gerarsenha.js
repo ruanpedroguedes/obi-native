@@ -6,4 +6,4 @@ const generateHash = async (password) => {
   console.log('Senha criptografada:', hashedPassword);
 };
 
-generateHash('professor2');
+generateHash('12345');

@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     match: [/.+@.+\..+/, 'Por favor, insira um email válido'],
   },
-  userpassword: {
+  password: {
     type: String,
     required: true,
   },
@@ -36,10 +36,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  userType: {
+  usertype: {
     type: String,
     required: true,
-    enum: ['student', 'teacher', 'admin'],
   },
   discipline_id: [
     {
@@ -52,13 +51,13 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('userpassword')) return next();
-const salt = await bcrypt.genSalt(10);
-  this.userpassword = await bcrypt.hash(this.userpassword, salt);
+  if (!this.isModified('password')) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(password, this.userpassword);
+  return bcrypt.compare(password, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);

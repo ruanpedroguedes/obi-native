@@ -34,14 +34,21 @@ const LoginScreen = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ usernameOrEmail: name, password }),
+        body: JSON.stringify({ email: name, password }),
       });
   
       const data = await response.json();
+      console.log(data.user);
   
       if (response.ok) {
+        await AsyncStorage.setItem('token', data.token);
         await AsyncStorage.setItem('userId', data.user.id);
-        router.push('/(tabs)');
+        
+        if (data.user.usertype === 'aluno') {
+          router.push('/(tabs)');
+        } else {
+          alert('Você não é um Aluno.');
+        }
       } else {
         alert(data.message || 'Erro ao fazer login.');
       }
