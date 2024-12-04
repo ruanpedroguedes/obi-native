@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Discipline {
   _id: string;
-  name: string;
+  nome: string;
 }
 
 export default function WeekScreen() {
@@ -17,26 +17,27 @@ export default function WeekScreen() {
     const fetchUserData = async () => {
       try {
         const userId = await AsyncStorage.getItem('userId');
+  
         if (!userId) {
           console.error('Usuário não encontrado no armazenamento local.');
           return;
         }
-
+  
         const response = await fetch(`http://192.168.0.101:5000/user/${userId}`);
-        const data = await response.json();
-
+        const data = await response.json();;
+  
         if (data.disciplines) {
           setDisciplines(data.disciplines);
         }
-        if (data.name) {
-          const firstName = data.name.split(' ')[0];
+        if (data.user && data.user.nome) {
+          const firstName = data.user.nome.split(' ')[0]; 
           setUserName(firstName);
         }
       } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);
       }
     };
-
+  
     fetchUserData();
   }, []);
 
@@ -56,7 +57,7 @@ export default function WeekScreen() {
         data={disciplines}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <DisciplineCard name={item.name} />
+          <DisciplineCard name={item.nome} />
         )}
       />
     </View>

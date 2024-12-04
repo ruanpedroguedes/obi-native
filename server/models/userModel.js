@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  turma: {
+    type: String,
+    required: true,
+  },
   usertype: {
     type: String,
     required: true,

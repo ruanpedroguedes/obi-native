@@ -38,7 +38,6 @@ const LoginScreen = () => {
       });
   
       const data = await response.json();
-      console.log(data.user);
   
       if (response.ok) {
         await AsyncStorage.setItem('token', data.token);

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const Discipline = require('../models/disciplineModel');
+const mongoose = require('mongoose');
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -38,17 +39,27 @@ const loginUser = async (req, res) => {
 
 const getUserDisciplines = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { id: userId } = req.params;
 
-    const user = await User.findById(userId).populate('discipline_id');
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'ID do usuário inválido' });
+    }
+
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
 
-    res.status(200).json({ name: user.name, disciplines: user.discipline_id });
+    const userClass = user.turma;
+
+    const disciplines = await Discipline.find({ turma: userClass });
+
+    res.status(200).json({ user: {
+      nome: user.username,
+    },disciplines });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Erro ao buscar disciplinas' });
   }
 };
 
