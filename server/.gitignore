@@ -1,0 +1,67 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+error.log
+
+# Env files
+.env
+
+# Database
+*.sqlite3
+*.db
+
+# Debugging & profiling
+.vscode/
+*.local
+*.swo
+*.swp
+*.swn
+*.swb
+.cache/
+*.pid
+*.seed
+*.seed.js
+*.json
+
+# IDE files
+.idea/
+.DS_Store
+*.sublime-workspace
+*.sublime-project
+
+# Build outputs
+dist/
+build/
+
+# Dependency directories
+jspm_packages/
+
+# Miscellaneous
+*.bak
+*.backup
+*.log
+*.diff
+*.patch
+*.tmp
+*.temp
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# Optional npm cache directory
+.npm
+
+# Mac specific files
+.DS_Store
+*.DS_Store
+
+# Coverage directory used by tools like istanbul
+coverage/
